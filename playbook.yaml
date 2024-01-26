@@ -1,0 +1,8 @@
+---
+- name: Ansible Pull Playbook for pllscan base install
+  hosts: localhost
+  become: yes
+
+  roles:
+    - golang
+    - pipx

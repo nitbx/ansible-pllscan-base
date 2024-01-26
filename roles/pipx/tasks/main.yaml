@@ -1,0 +1,17 @@
+---
+# Tasks for installing Pipx
+- name: Ensure pip is installed
+  ansible.builtin.apt:
+    name: python3-pip
+    state: present
+
+- name: Install pipx
+  ansible.builtin.pip:
+    name: pipx
+    executable: pip3
+
+- name: Ensure pipx bin directory is in PATH
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: 'export PATH=$PATH:~/.local/bin'
+    create: yes

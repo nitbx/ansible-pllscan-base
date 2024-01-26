@@ -1,0 +1,23 @@
+---
+# Tasks for installing Golang
+- name: Download Golang
+  ansible.builtin.get_url:
+    url: "https://go.dev/dl/go1.21.6.linux-amd64.tar.gz"
+    dest: "/tmp/go1.21.6.linux-amd64.tar.gz"
+    validate_certs: yes
+
+- name: Extract Golang tarball
+  ansible.builtin.unarchive:
+    src: "/tmp/go1.21.6.linux-amd64.tar.gz"
+    dest: "/usr/local"
+    remote_src: yes
+    creates: "/usr/local/go"
+
+- name: Set Golang environment variables
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: "{{ item }}"
+    create: yes
+  with_items:
+    - 'export GOROOT=/usr/local/go'
+    - 'export PATH=$PATH:$GOROOT/bin'
